@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teas N Trees — Guntur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:  #F7F1E2;
+    --sand:   #E7D9B4;
+    --moss:   #4B5E3B;
+    --moss-dark: #384627;
+    --bark:   #4A3628;
+    --clay:   #C57C58;
+    --ink:    #2A2419;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    color:var(--bark);
+    font-weight:500;
+    line-height:1.08;
+  }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:absolute;
+    top:26px;
+    left:0;
+    right:0;
+    z-index:3;
+    padding:28px 0 0;
+  }
+  .nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:22px;
+    color:var(--cream);
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--cream);
+  }
+  .nav-links a:hover{ color:var(--clay); }
+
+  .scroll-cue{
+    position:absolute;
+    right:32px;
+    bottom:26px;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#B8AF98;
+    font-size:12px;
+  }
+  .scroll-cue .line{
+    width:1px;
+    height:34px;
+    background:rgba(247,241,226,0.4);
+  }
+
+  /* ---------- cinematic hero ---------- */
+  .hero-frame{
+    position:relative;
+    background:var(--ink);
+  }
+  .letterbox{
+    height:26px;
+    background:var(--ink);
+  }
+  .hero{
+    position:relative;
+    min-height:82vh;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+  }
+  .hero-bg svg{
+    width:100%;
+    height:100%;
+    display:block;
+  }
+  .hero-scrim{
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(20,17,10,0.15) 0%, rgba(20,17,10,0.15) 40%, rgba(20,17,10,0.86) 100%),
+      linear-gradient(90deg, rgba(20,17,10,0.55) 0%, rgba(20,17,10,0.05) 55%);
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    padding:0 0 72px;
+    width:100%;
+  }
+  .hero-content .eyebrow{
+    color:var(--clay);
+    font-size:13px;
+    letter-spacing:0.02em;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(52px, 8vw, 108px);
+    letter-spacing:-0.01em;
+    max-width:11ch;
+  }
+  .hero .lede{
+    max-width:42ch;
+    margin-top:22px;
+    font-size:18px;
+    color:#D9D2BE;
+  }
+  .stat-strip{
+    display:flex;
+    gap:36px;
+    margin-top:40px;
+    flex-wrap:wrap;
+  }
+  .stat b{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    color:var(--sand);
+  }
+  .stat span{
+    font-size:13px;
+    color:#B8AF98;
+  }
+
+  .cta-row{
+    margin-top:36px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:13px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    border:1px solid var(--bark);
+  }
+  .btn-solid{
+    background:var(--clay);
+    color:var(--ink);
+    border-color:var(--clay);
+  }
+  .btn-line{
+    color:var(--cream);
+    border-color:rgba(247,241,226,0.5);
+  }
+
+  /* ---------- palette strip ---------- */
+  .palette-strip{
+    display:flex;
+    border-top:1px solid rgba(74,54,40,0.18);
+    border-bottom:1px solid rgba(74,54,40,0.18);
+  }
+  .swatch{
+    flex:1;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    border-right:1px solid rgba(74,54,40,0.12);
+  }
+  .swatch:last-child{ border-right:none; }
+  .dot{
+    width:10px; height:10px; border-radius:50%;
+    flex-shrink:0;
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding:80px 0;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:44px;
+    gap:24px;
+  }
+  .section-head h2{
+    font-size:38px;
+  }
+  .section-head p{
+    max-width:32ch;
+    font-size:14px;
+    color:#6b6250;
+  }
+
+  /* ---------- menu ---------- */
+  .menu-groups{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:2px;
+    background:rgba(74,54,40,0.18);
+  }
+  .menu-group{
+    background:var(--cream);
+    padding:30px 34px;
+  }
+  .menu-group h3{
+    font-size:15px;
+    font-style:italic;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .menu-group h3 .dot{ width:8px; height:8px; }
+  .menu-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 0;
+    border-top:1px solid rgba(74,54,40,0.1);
+    font-size:15px;
+  }
+  .menu-item:first-of-type{ border-top:none; }
+  .menu-item .icon-badge{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .menu-item .icon-badge svg{
+    width:19px;
+    height:19px;
+    stroke-width:1.6;
+  }
+  .menu-item .item-name{
+    flex:1;
+  }
+  .menu-item .tag{
+    font-size:11px;
+    color:#8a8067;
+    white-space:nowrap;
+    align-self:center;
+  }
+  .menu-group.moss .icon-badge{ background:rgba(75,94,59,0.14); color:var(--moss); }
+  .menu-group.clay .icon-badge{ background:rgba(197,124,88,0.16); color:var(--clay); }
+  .menu-group.sand .icon-badge{ background:rgba(74,54,40,0.1); color:var(--bark); }
+  .menu-group.bark .icon-badge{ background:rgba(74,54,40,0.14); color:var(--bark); }
+
+  /* ---------- reviews ---------- */
+  .review-band{
+    background:var(--moss-dark);
+    color:var(--sand);
+  }
+  .review-band .section-head p{ color:#c9caba; }
+  .review-band h2{ color:var(--cream); }
+  .reviews{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .review{
+    border-top:1px solid rgba(247,241,226,0.25);
+    padding-top:18px;
+  }
+  .review p{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    line-height:1.4;
+    color:var(--cream);
+  }
+  .review span{
+    display:block;
+    margin-top:14px;
+    font-size:12px;
+    color:#b7b8a5;
+  }
+
+  /* ---------- visit ---------- */
+  .visit{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+  }
+  .visit dl{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:12px 20px;
+    font-size:15px;
+  }
+  .visit dt{
+    color:#8a8067;
+    font-size:13px;
+    padding-top:2px;
+  }
+  .visit dd{ color:var(--ink); }
+
+  .hours-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  .hours-table td{
+    padding:8px 0;
+    border-top:1px solid rgba(74,54,40,0.12);
+  }
+  .hours-table td:last-child{ text-align:right; color:var(--moss-dark); }
+
+  footer{
+    padding:32px 0 48px;
+    font-size:13px;
+    color:#8a8067;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  @media (max-width:760px){
+    .hero{ min-height:88vh; }
+    .hero h1{ max-width:none; }
+    .scroll-cue{ display:none; }
+    .menu-groups{ grid-template-columns:1fr; }
+    .reviews{ grid-template-columns:1fr; }
+    .visit{ grid-template-columns:1fr; }
+    .palette-strip{ flex-wrap:wrap; }
+    .swatch{ flex:1 1 50%; border-bottom:1px solid rgba(74,54,40,0.12); }
+    .nav-links{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="icon-corn" viewBox="0 0 24 24">
+      <path d="M12 3c3 0 5 3 5 8s-2 10-5 10-5-5-5-10 2-8 5-8Z"/>
+      <path d="M8 7l8 0M7.5 10.5l9 0M7.5 14l9 0M8.5 17.5l7 0"/>
+    </symbol>
+    <symbol id="icon-sandwich" viewBox="0 0 24 24">
+      <path d="M3 10 12 5l9 5"/>
+      <path d="M4 10h16l-1.5 8h-13L4 10Z"/>
+      <path d="M7 13.5h10"/>
+    </symbol>
+    <symbol id="icon-pasta" viewBox="0 0 24 24">
+      <path d="M4 12a8 8 0 0 1 16 0"/>
+      <path d="M4 12h16l-1 7H5l-1-7Z"/>
+      <path d="M9 8c0 2-1.5 2-1.5 4M13 7c0 2.2-1.8 2.2-1.8 4.4M17 8c0 2-1.5 2-1.5 4"/>
+    </symbol>
+    <symbol id="icon-rice" viewBox="0 0 24 24">
+      <path d="M4 11h16l-1.2 8H5.2L4 11Z"/>
+      <path d="M6.5 11C6 8 8 4 12 4s6 4 5.5 7"/>
+    </symbol>
+    <symbol id="icon-coffee" viewBox="0 0 24 24">
+      <path d="M5 9h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9Z"/>
+      <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/>
+      <path d="M8 5.5c0 1-1 1-1 2M12 5c0 1-1 1-1 2"/>
+    </symbol>
+    <symbol id="icon-tea" viewBox="0 0 24 24">
+      <path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/>
+      <path d="M17 10h1.8a2.2 2.2 0 0 1 0 4.4H17"/>
+      <path d="M8 4.5c1 1 1 2-.3 3M12.5 4.5c1 1 1 2-.3 3"/>
+    </symbol>
+    <symbol id="icon-bread" viewBox="0 0 24 24">
+      <path d="M4 12c0-4 3.5-7 8-7s8 3 8 7-2 6-8 6-8-2-8-6Z"/>
+      <path d="M9 10.3c1.2 1 4.8 1 6 0M8.5 13.3c1.7 1 6.3 1 8 0"/>
+    </symbol>
+    <symbol id="icon-pizza" viewBox="0 0 24 24">
+      <path d="M12 4 3 19h18L12 4Z"/>
+      <circle cx="12" cy="12" r="1"/>
+      <circle cx="10" cy="15" r="1"/>
+      <circle cx="14.5" cy="15.5" r="1"/>
+    </symbol>
+    <symbol id="icon-wedges" viewBox="0 0 24 24">
+      <path d="M6 20 9 6l4 1-3 13Z"/>
+      <path d="M11 20 14.5 7l4 1.2L15 20Z"/>
+    </symbol>
+    <symbol id="icon-brownie" viewBox="0 0 24 24">
+      <rect x="4" y="9" width="16" height="9" rx="1.5"/>
+      <path d="M4 9c1-2.5 3-4 8-4s7 1.5 8 4"/>
+      <path d="M9 13v3M14.5 13v3"/>
+    </symbol>
+    <symbol id="icon-sizzler" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="15" rx="8" ry="3.2"/>
+      <path d="M9 8c-.8 1.4.8 1.6 0 3M13 7c-.8 1.4.8 1.6 0 3M16.5 9c-.6 1.2.6 1.4 0 2.6"/>
+    </symbol>
+    <symbol id="icon-cocktail" viewBox="0 0 24 24">
+      <path d="M5 5h14l-7 8-7-8Z"/>
+      <path d="M12 13v6M8.5 19h7"/>
+    </symbol>
+    <symbol id="icon-juice" viewBox="0 0 24 24">
+      <path d="M7 4h10l-1.2 15a2 2 0 0 1-2 1.8h-3.6a2 2 0 0 1-2-1.8L7 4Z"/>
+      <path d="M7.6 9.5h8.8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="hero-frame">
+  <div class="letterbox"></div>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3A4A2C"/>
+            <stop offset="55%" stop-color="#2C3620"/>
+            <stop offset="100%" stop-color="#171408"/>
+          </linearGradient>
+          <radialGradient id="glow" cx="72%" cy="30%" r="55%">
+            <stop offset="0%" stop-color="#C57C58" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#C57C58" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="1400" height="900" fill="url(#sky)"/>
+        <circle cx="1010" cy="270" r="230" fill="url(#glow)"/>
+        <circle cx="1010" cy="270" r="86" fill="#E7D9B4" opacity="0.9"/>
+        <!-- distant canopy -->
+        <path d="M0 560 C 120 500, 260 520, 380 480 C 520 435, 640 470, 760 430 C 900 385, 1040 430, 1180 400 C 1280 380, 1360 400, 1400 420 L1400 900 L0 900 Z" fill="#212B16" opacity="0.85"/>
+        <!-- mid canopy -->
+        <path d="M0 640 C 140 590, 300 610, 440 560 C 580 512, 700 560, 860 520 C 1000 484, 1140 520, 1260 500 C 1330 488, 1380 500, 1400 510 L1400 900 L0 900 Z" fill="#161C0E"/>
+        <!-- foreground branch, left -->
+        <path d="M-20 900 C 60 760, 40 560, 170 430 C 230 368, 260 300, 250 220" stroke="#0F130A" stroke-width="34" fill="none" stroke-linecap="round"/>
+        <path d="M60 640 C 120 610, 160 580, 190 540" stroke="#0F130A" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <path d="M120 520 C 165 495, 195 470, 215 440" stroke="#0F130A" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <!-- foreground branch, right lower -->
+        <path d="M1420 900 C 1330 800, 1340 700, 1260 640" stroke="#0F130A" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <!-- leaf clusters -->
+        <g fill="#0F130A">
+          <ellipse cx="235" cy="205" rx="30" ry="16" transform="rotate(-25 235 205)"/>
+          <ellipse cx="205" cy="230" rx="26" ry="14" transform="rotate(10 205 230)"/>
+          <ellipse cx="190" cy="450" rx="34" ry="18" transform="rotate(-10 190 450)"/>
+          <ellipse cx="225" cy="470" rx="28" ry="15" transform="rotate(20 225 470)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-scrim"></div>
+
+    <header>
+      <div class="wrap">
+        <div class="nav">
+          <div class="wordmark">Teas N Trees</div>
+          <nav class="nav-links">
+            <a href="#menu">Menu</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#visit">Visit</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="hero-content wrap">
+      <div class="eyebrow">Lakshmipuram, Guntur</div>
+      <h1>A garden for your coffee.</h1>
+      <p class="lede">Tucked into Pandaripuram Road, Teas N Trees pairs Assam teas and slow-built coffee with a leafy, unhurried room — the kind of place people come to sit for an hour and stay for two.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#menu">See the menu</a>
+        <a class="btn btn-line" href="#visit">Find us</a>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><b>4.3</b><span>Google rating</span></div>
+        <div class="stat"><b>1,999</b><span>reviews</span></div>
+        <div class="stat"><b>₹200–400</b><span>per person</span></div>
+        <div class="stat"><b>11am–11pm</b><span>daily</span></div>
+      </div>
+    </div>
+
+    <div class="scroll-cue"><span class="line"></span>Scroll</div>
+  </section>
+
+  <div class="letterbox"></div>
+</div>
+
+<div class="palette-strip wrap" style="padding:0 32px;">
+  <div class="swatch"><span class="dot" style="background:var(--moss)"></span>Moss</div>
+  <div class="swatch"><span class="dot" style="background:var(--clay)"></span>Clay</div>
+  <div class="swatch"><span class="dot" style="background:var(--sand)"></span>Sand</div>
+  <div class="swatch"><span class="dot" style="background:var(--bark)"></span>Bark</div>
+</div>
+
+<div class="wrap">
+  <section id="menu">
+    <div class="section-head">
+      <h2>The menu, by color.</h2>
+      <p>Four moods on the menu, each named for what it tastes like it should look like.</p>
+    </div>
+    <div class="menu-groups">
+      <div class="menu-group moss">
+        <h3><span class="dot" style="background:var(--moss)"></span>Moss — green &amp; savoury</h3>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-corn"/></svg></span><span class="item-name">Crispy Corn</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-sandwich"/></svg></span><span class="item-name">Corn Spinach Grilled Sandwich</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-pasta"/></svg></span><span class="item-name">Mixto Veggie Pasta</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-rice"/></svg></span><span class="item-name">Mushroom Masala Rice</span></div>
+      </div>
+      <div class="menu-group clay">
+        <h3><span class="dot" style="background:var(--clay)"></span>Clay — roasted &amp; warm</h3>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-coffee"/></svg></span><span class="item-name">Cappuccino Coffee</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-tea"/></svg></span><span class="item-name">Mint Chamomile Tea</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-tea"/></svg></span><span class="item-name">Hibiscus Tea</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-bread"/></svg></span><span class="item-name">Masala Garlic Bread with Cheese</span></div>
+      </div>
+      <div class="menu-group sand">
+        <h3><span class="dot" style="background:var(--sand)"></span>Sand — bread &amp; base</h3>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-bread"/></svg></span><span class="item-name">Cheese Garlic Bread</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-sandwich"/></svg></span><span class="item-name">Sandwiches</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-pizza"/></svg></span><span class="item-name">Pizzas</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-wedges"/></svg></span><span class="item-name">Special Potato Wedges</span></div>
+      </div>
+      <div class="menu-group bark">
+        <h3><span class="dot" style="background:var(--bark)"></span>Bark — sweet &amp; poured</h3>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-brownie"/></svg></span><span class="item-name">Sizzling Brownie with Vanilla</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-sizzler"/></svg></span><span class="item-name">Italian Sizzler</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-cocktail"/></svg></span><span class="item-name">Blue Logon Mojito</span><span class="tag">popular</span></div>
+        <div class="menu-item"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-juice"/></svg></span><span class="item-name">Watermelon Juice</span><span class="tag">popular</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="review-band">
+  <div class="wrap">
+    <section id="reviews" style="padding:72px 0;">
+      <div class="section-head">
+        <h2>What Lakshmipuram says.</h2>
+        <p>A few notes pulled from Google reviews.</p>
+      </div>
+      <div class="reviews">
+        <div class="review">
+          <p>Peaceful, well served, and the food is genuinely satisfying.</p>
+          <span>Google reviewer</span>
+        </div>
+        <div class="review">
+          <p>Reasonably priced for how distinctive the dishes are.</p>
+          <span>Google reviewer</span>
+        </div>
+        <div class="review">
+          <p>A calm, pretty room — easy to lose an hour in.</p>
+          <span>Google reviewer</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="visit">
+    <div class="section-head">
+      <h2>Visit.</h2>
+      <p>Open every day, all year.</p>
+    </div>
+    <div class="visit">
+      <dl>
+        <dt>Address</dt>
+        <dd>1st Lane, Pandaripuram Rd, Lakshmipuram,<br>Ashok Nagar, Guntur, Andhra Pradesh 522002</dd>
+        <dt>WhatsApp</dt>
+        <dd>072868 33999</dd>
+        <dt>Distance</dt>
+        <dd>3.1 km from central Guntur</dd>
+        <dt>Service</dt>
+        <dd>Dine-in · Takeaway · No-contact delivery</dd>
+      </dl>
+      <table class="hours-table">
+        <tr><td>Monday – Sunday</td><td>11:00 am – 11:00 pm</td></tr>
+      </table>
+    </div>
+  </section>
+</div>
+
+<footer class="wrap">
+  <span>Teas N Trees · Lakshmipuram, Guntur</span>
+  <span>Unofficial concept site, built from public listing data</span>
+</footer>
+
+</body>
+</html>
